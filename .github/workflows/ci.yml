@@ -16,12 +16,21 @@ jobs:
         run: pip install pytest
       - name: Run tests
         run: python -m pytest -v
-  build:
+  build-and-push:
     runs-on: ubuntu-latest
     needs: test
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-      - name: Build Docker image
-        run: docker build -t hello-app .
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secret.DOCKERHUB_TOKEN }}
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: ${{ secrets.DOCKERHUD_USERNAME }}/hello-app:latest
 
