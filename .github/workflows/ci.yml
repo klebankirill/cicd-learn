@@ -32,5 +32,5 @@ jobs:
          DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
         run: |
           docker build -t $DOCKERHUB_USERNAME/hello-app:latest .
-          docker push bDOCKERHUD_USERNAME/hello-app:latest
+          docker push $DOCKERHUD_USERNAME/hello-app:latest
 
