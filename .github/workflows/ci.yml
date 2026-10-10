@@ -28,9 +28,9 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Build and push Docker image
-        uses: docker/build-push-action@v5
-        with:
-          context: .
-          push: true
-          tags: ${{ secrets.DOCKERHUD_USERNAME }}/hello-app:latest
+        env:
+         DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+        run: |
+          docker build -t $DOCKERHUB_USERNAME/hello-app:latest .
+          docker push bDOCKERHUD_USERNAME/hello-app:latest
 
