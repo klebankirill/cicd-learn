@@ -28,15 +28,15 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build and push Docker image
+      - name: Build Docker image
         env:
           DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
         run: |
-          echo "=== DEBUG INFO ==="
-          echo "Length: ${#DOCKERHUB_USERNAME}"
-          echo "First 3 chars: ${DOCKERHUB_USERNAME:0:3}"
-          echo "Last 3 charts: ${DOCKERHUB_USERNAME: -3}"
-          echo "=== END DEBUG ==="
           docker build -t $DOCKERHUB_USERNAME/hello-app:latest .
-          docker push $DOCKERHUD_USERNAME/hello-app:latest
 
+      - name: Push Docker image
+        env:
+          DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+        run: |
+          echo "Pushing with user: [${DOCKERHUB_USERNAME }]"
+          docker push $DOCKERHUB_USERNAME/hello-app:latest
