@@ -38,5 +38,5 @@ jobs:
         env:
           DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
         run: |
-          echo "Pushing with user: [${DOCKERHUB_USERNAME }]"
+          echo "Pushing with user: [${DOCKERHUB_USERNAME}]"
           docker push $DOCKERHUB_USERNAME/hello-app:latest
