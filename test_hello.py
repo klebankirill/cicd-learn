@@ -1,4 +1,7 @@
-from hello import greet
-def test_greet_returns_correct_string():
-    result = greet("world")
-    assert result == "Hello, world!"
+from hello import app
+
+def test_hello_returns_greeting():
+    client = app.test_client()
+    response = client.get("/")
+    assert response.status_code == 200
+    assert "Hello" in response.data.decode("utf-8")
