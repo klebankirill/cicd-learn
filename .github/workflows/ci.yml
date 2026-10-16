@@ -40,3 +40,21 @@ jobs:
         run: |
           echo "Pushing with user: [${DOCKERHUB_USERNAME}]"
           docker push $DOCKERHUB_USERNAME/hello-app:latest
+  deploy:
+    runs-on: self-hosted
+    needs: build-and-push
+
+    steps:
+      - name: Pull latest image
+        run: docker pull skyyday/hello-app:latest
+
+      - name: Stop and remove old container
+        run: |
+          docker stop hello-app 2>/dev/null || true
+          docker rm hello-app 2>/dev/null || true
+
+      - name: Run new container
+        run: docker run -d -p 5000:5000 --name hello-app skyyday/hello-app:latest
+
+      - name: Show running containers
+        run: docker ps
