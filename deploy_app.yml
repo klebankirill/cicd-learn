@@ -1,0 +1,21 @@
+---
+- name: Deploy Hello App
+  hosts: webservers
+  become: yes
+
+  tasks:
+    - name: Pull latest Docker image
+      community.docker.docker_image:
+        name: skyyday/hello-app:latest
+        source: pull
+    - name: Remove old container if exists
+      community.docker.docker_container:
+        name: hello-app
+    - name: Run new container
+      community.docker.docker_container:
+        name: hello-app
+        image: skyyday/hello-app:latest
+        state: started
+        ports:
+          - "5000:5000"
+        restart_policy: always
