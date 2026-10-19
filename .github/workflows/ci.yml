@@ -13,7 +13,7 @@ jobs:
         with:
           python-version: '3.12'
       - name: Install dependencies
-        run: pip install pytest flask
+        run: pip install pytest flask prometheus-flask-exporter
       - name: Run tests
         run: python -m pytest -v
   build-and-push:
