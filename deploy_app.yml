@@ -8,9 +8,6 @@
       community.docker.docker_image:
         name: skyyday/hello-app:latest
         source: pull
-    - name: Remove old container if exists
-      community.docker.docker_container:
-        name: hello-app
     - name: Run new container
       community.docker.docker_container:
         name: hello-app
