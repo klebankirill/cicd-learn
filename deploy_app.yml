@@ -4,15 +4,17 @@
   become: yes
 
   tasks:
-    - name: Pull latest Docker image
-      community.docker.docker_image:
-        name: skyyday/hello-app:latest
-        source: pull
-    - name: Run new container
-      community.docker.docker_container:
-        name: hello-app
-        image: skyyday/hello-app:latest
-        state: started
-        ports:
-          - "5000:5000"
-        restart_policy: always
+    - name: Ensure project directory exists
+      file:
+        path: /home/kirill/cicd-learn
+        state: directory
+
+    - name: Copy docker-compose.yml
+      copy:
+        src: docker-compose.yml
+        dest: /home/kirill/cicd-learn/docker-compose.yml
+    - name: Run docker compose up
+      community.docker.docker_compose_v2:
+        project_src: /home/kirill/cicd-learn
+        state: present
+        pull: always
